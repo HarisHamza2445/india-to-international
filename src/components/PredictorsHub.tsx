@@ -303,14 +303,14 @@ export function PredictorsHub() {
                   type="button"
                   onClick={runAIQ}
                   disabled={!aiqRank}
-                  className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-lg bg-brand px-5 text-[14px] font-semibold text-white transition-colors hover:bg-brand-alt disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                  className="inline-flex h-[46px] w-auto max-w-full items-center justify-center gap-2 rounded-lg bg-brand px-5 text-[14px] font-semibold text-white transition-colors hover:bg-brand-alt disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                 >
                   <ZapIcon className="h-4 w-4" />
                   Run MCC Predictor
                 </button>
                 <a
                   href="#contact"
-                  className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,45,0.04)] transition-colors hover:bg-sky sm:w-auto"
+                  className="inline-flex h-[46px] w-auto max-w-full items-center justify-center gap-2 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,45,0.04)] transition-colors hover:bg-sky sm:w-auto"
                 >
                   Request Detailed Report
                 </a>
@@ -381,14 +381,14 @@ export function PredictorsHub() {
                   type="button"
                   onClick={runState}
                   disabled={!stateRank}
-                  className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-lg bg-navy px-5 text-[14px] font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                  className="inline-flex h-[46px] w-auto max-w-full items-center justify-center gap-2 rounded-lg bg-navy px-5 text-[14px] font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                 >
                   <ZapIcon className="h-4 w-4" />
                   Run State Predictor
                 </button>
                 <a
                   href="#contact"
-                  className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,45,0.04)] transition-colors hover:bg-sky sm:w-auto"
+                  className="inline-flex h-[46px] w-auto max-w-full items-center justify-center gap-2 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,45,0.04)] transition-colors hover:bg-sky sm:w-auto"
                 >
                   Request Detailed Report
                 </a>

@@ -50,19 +50,19 @@ export function Hero() {
               AIQ, Deemed, and State quotas nationwide.
             </p>
 
-            <div className="hero-rise hero-d3 mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-5">
+            <div className="hero-rise hero-d3 mt-7 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-5">
               <a
                 href="#pathways"
-                className="btn-press flex h-[52px] w-full items-center justify-between rounded-md bg-navy px-5 text-[15px] font-semibold text-white transition-opacity hover:opacity-95 sm:h-[54px] sm:w-[305px] sm:text-[15.5px]"
+                className="btn-press flex h-[52px] w-auto max-w-full items-center justify-between gap-4 rounded-md bg-navy px-5 text-[15px] font-semibold text-white transition-opacity hover:opacity-95 sm:h-[54px] sm:w-[305px] sm:text-[15.5px]"
               >
                 Explore Counselling Pathways
-                <ArrowDownIcon className="h-[17px] w-[17px]" />
+                <ArrowDownIcon className="h-[17px] w-[17px] shrink-0" />
               </a>
               <a
                 href="#predictors"
-                className="btn-press flex h-[52px] w-full items-center justify-center gap-2.5 rounded-md border border-[#DCE3EC] bg-white px-5 text-[15px] font-semibold text-navy shadow-[0_1px_2px_rgba(16,24,45,0.05)] transition-colors hover:bg-sky sm:h-[54px] sm:w-[230px] sm:text-[15.5px]"
+                className="btn-press flex h-[52px] w-auto max-w-full items-center justify-center gap-2.5 rounded-md border border-[#DCE3EC] bg-white px-5 text-[15px] font-semibold text-navy shadow-[0_1px_2px_rgba(16,24,45,0.05)] transition-colors hover:bg-sky sm:h-[54px] sm:w-[230px] sm:text-[15.5px]"
               >
-                <SparklesIcon className="h-[18px] w-[18px] text-brand" />
+                <SparklesIcon className="h-[18px] w-[18px] shrink-0 text-brand" />
                 Use Rank Predictor
               </a>
             </div>

@@ -38,7 +38,7 @@ export function FloatingCTA() {
             className="btn-press flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-[#25D366] px-3 text-[15px] font-bold tracking-tight text-white shadow-lg shadow-[#25D366]/35 outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20">
-              <WhatsAppIcon className="h-[18px] w-[18px]" />
+              <WhatsAppIcon className="h-[19px] w-[19px]" />
             </span>
             <span className="truncate">WhatsApp</span>
           </a>
@@ -48,7 +48,7 @@ export function FloatingCTA() {
             className="btn-press flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-[#0062ff] px-3 text-[15px] font-bold tracking-tight text-white shadow-lg shadow-blue-600/30 outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20">
-              <PhoneIcon className="h-[18px] w-[18px]" />
+              <PhoneIcon className="h-[19px] w-[19px]" />
             </span>
             <span className="truncate">Call Now</span>
           </a>
@@ -71,7 +71,7 @@ export function FloatingCTA() {
           {pulse && (
             <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-60" />
           )}
-          <WhatsAppIcon className="h-7 w-7 relative z-10" />
+          <WhatsAppIcon className="relative z-10 h-[30px] w-[30px]" />
           <span className="pointer-events-none absolute right-16 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
             WhatsApp Us
           </span>
@@ -82,7 +82,7 @@ export function FloatingCTA() {
           aria-label="Call now"
           className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#0062ff] text-white shadow-lg shadow-blue-500/40 transition-transform duration-200 hover:scale-110 active:scale-95"
         >
-          <PhoneIcon className="h-5 w-5" />
+          <PhoneIcon className="h-[21px] w-[21px]" />
           <span className="pointer-events-none absolute right-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
             Call Now
           </span>
