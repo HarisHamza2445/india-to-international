@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-ink: #10182d;
+  --color-muted: #52627a;
+  --color-brand: #0057d9;
+  --color-brand-alt: #0759d8;
+  --color-sky: #eef5ff;
+  --color-line: #e4e9f1;
+  --color-navy: #0d2238;
+  --color-topbar: #092239;
+  --color-accent: #0aa66a;
+  --color-stats: #f7f9fc;
+  --color-navlink: #3f4148;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #10182d;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth animated scroll for navbar / in-page hash links */
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+}
+
+/* Prevent iOS auto-zoom on form focus (inputs must be ≥16px).
+   In base layer so Tailwind text-* utilities still win when present. */
+@layer base {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  @media (min-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: inherit;
+    }
+  }
+}
+
+/* Lock background scroll while mobile drawer is open */
+body.nav-locked {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* Safe-area helpers for iPhone notch / home indicator */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Scroll Reveal Animations ── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Base hidden state – JS adds `data-visible` when in viewport */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.reveal[data-visible="true"] {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-left[data-visible="true"] {
+  animation: reveal-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-right[data-visible="true"] {
+  animation: reveal-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.reveal-fade[data-visible="true"] {
+  animation: reveal-fade 0.55s ease both;
+}
+.reveal-scale[data-visible="true"] {
+  animation: reveal-scale 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Re-triggerable reveal: remove reveal-skip then set data-visible again */
+.reveal-skip,
+.reveal-skip[data-visible="true"] {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Stagger delays (custom names — avoid clashing with Tailwind delay-*) */
+.anim-delay-100 { animation-delay: 0.10s; }
+.anim-delay-150 { animation-delay: 0.15s; }
+.anim-delay-200 { animation-delay: 0.20s; }
+.anim-delay-250 { animation-delay: 0.25s; }
+.anim-delay-300 { animation-delay: 0.30s; }
+.anim-delay-400 { animation-delay: 0.40s; }
+.anim-delay-500 { animation-delay: 0.50s; }
+
+/* Hero entrance (page load — not scroll) */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hero-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-rise {
+  animation: hero-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-fade {
+  animation: hero-fade 0.7s ease both;
+}
+.hero-pop {
+  animation: hero-pop 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-d1 { animation-delay: 0.08s; }
+.hero-d2 { animation-delay: 0.18s; }
+.hero-d3 { animation-delay: 0.28s; }
+.hero-d4 { animation-delay: 0.38s; }
+.hero-d5 { animation-delay: 0.48s; }
+.hero-d6 { animation-delay: 0.58s; }
+.float-soft {
+  animation: float-soft 4.5s ease-in-out infinite;
+}
+
+/* Card / button micro-interactions */
+.hover-lift {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(16, 24, 45, 0.10);
+}
+
+.btn-press {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+@media (hover: none) {
+  .btn-press:active {
+    transform: scale(0.96);
+    filter: brightness(0.96);
+  }
+}
+
+/* Active nav underline pulse */
+@keyframes nav-underline {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-visible="true"],
+  .reveal-left[data-visible="true"],
+  .reveal-right[data-visible="true"],
+  .reveal-fade[data-visible="true"],
+  .reveal-scale[data-visible="true"],
+  .hero-rise,
+  .hero-fade,
+  .hero-pop,
+  .float-soft {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* WhatsApp ping */
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  50%       { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+}
+
