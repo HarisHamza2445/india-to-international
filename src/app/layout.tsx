@@ -17,6 +17,13 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://indiatointernational.in"),
+  icons: {
+    icon: [
+      { url: "/itoilogo.png", type: "image/png" },
+    ],
+    apple: "/itoilogo.png",
+    shortcut: "/itoilogo.png",
+  },
   title: "India To International | NEET Medical Admissions & Advisory",
   description:
     "Authoritative, ethical, and data-backed counselling guidance for NEET UG, NEET PG and MDS aspirants across AIQ, Deemed, and State quotas. 19+ years of verified medical admissions expertise. Pune, Maharashtra.",
