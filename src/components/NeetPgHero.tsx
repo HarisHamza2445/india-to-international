@@ -88,19 +88,19 @@ export function NeetPgHero() {
                 hands-on residency training.
               </p>
 
-              <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
                   href="https://wa.me/919359544396"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-press inline-flex h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 text-[14.5px] font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto"
+                  className="btn-press inline-flex h-[48px] w-fit items-center justify-center gap-2 rounded-lg bg-ink px-6 text-[14.5px] font-semibold text-white transition-opacity hover:opacity-90"
                 >
                   <MessageSquareIcon className="h-4 w-4" />
                   Connect on WhatsApp
                 </a>
                 <a
                   href="#specialty-matrix"
-                  className="btn-press inline-flex h-[48px] w-full items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 text-[14.5px] font-semibold text-ink shadow-[0_1px_3px_rgba(16,24,45,0.06)] transition-colors hover:bg-sky sm:w-auto"
+                  className="btn-press inline-flex h-[48px] w-fit items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 text-[14.5px] font-semibold text-ink shadow-[0_1px_3px_rgba(16,24,45,0.06)] transition-colors hover:bg-sky"
                 >
                   <TableIcon className="h-4 w-4" />
                   Explore Specialty Matrix
