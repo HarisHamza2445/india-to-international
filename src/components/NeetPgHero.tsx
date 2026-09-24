@@ -33,19 +33,19 @@ export function NeetPgHero() {
       {/* ── Breadcrumb bar ── */}
       <div className="border-b border-line bg-[#f7f9fc]">
         <div className="mx-auto flex max-w-[1424px] items-center justify-between px-4 py-2.5 sm:px-8">
-          <nav className="flex items-center gap-1.5 text-[12.5px] text-muted">
-            <Link href="/" className="hover:text-brand transition-colors">
-              Portal
-            </Link>
-            <span className="text-line">/</span>
-            <a href="/neet-pg" className="hover:text-brand transition-colors">
-              Postgraduate Admissions Desk
-            </a>
-            <span className="text-line">/</span>
-            <span className="font-semibold text-ink">
-              NEET PG &amp; MDS Academic Council
-            </span>
-          </nav>
+              <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[12.5px] text-muted">
+                <Link href="/" className="transition-colors hover:text-brand shrink-0">
+                  Portal
+                </Link>
+                <span className="text-line shrink-0">/</span>
+                <a href="/neet-pg" className="transition-colors hover:text-brand truncate max-w-[140px] sm:max-w-none">
+                  Postgraduate Admissions Desk
+                </a>
+                <span className="text-line shrink-0">/</span>
+                <span className="font-semibold text-ink truncate max-w-[120px] sm:max-w-none">
+                  NEET PG &amp; MDS Academic Council
+                </span>
+              </div>
           <div className="hidden items-center gap-5 sm:flex">
             <span className="flex items-center gap-1.5 text-[12px] font-medium text-accent">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
@@ -88,19 +88,19 @@ export function NeetPgHero() {
                 hands-on residency training.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3.5">
+              <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
                   href="https://wa.me/919359544396"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-press inline-flex h-[48px] items-center justify-center gap-2 rounded-lg bg-ink px-6 text-[14.5px] font-semibold text-white transition-opacity hover:opacity-90"
+                  className="btn-press inline-flex h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 text-[14.5px] font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto"
                 >
                   <MessageSquareIcon className="h-4 w-4" />
                   Connect on WhatsApp
                 </a>
                 <a
                   href="#specialty-matrix"
-                  className="btn-press inline-flex h-[48px] items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 text-[14.5px] font-semibold text-ink shadow-[0_1px_3px_rgba(16,24,45,0.06)] transition-colors hover:bg-sky"
+                  className="btn-press inline-flex h-[48px] w-full items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 text-[14.5px] font-semibold text-ink shadow-[0_1px_3px_rgba(16,24,45,0.06)] transition-colors hover:bg-sky sm:w-auto"
                 >
                   <TableIcon className="h-4 w-4" />
                   Explore Specialty Matrix
@@ -109,7 +109,7 @@ export function NeetPgHero() {
             </div>
 
             {/* Right: image card */}
-            <div className="relative h-[380px] w-full overflow-hidden rounded-[22px] shadow-[0_16px_48px_rgba(16,24,45,0.13)] sm:h-[440px] lg:h-[480px]">
+            <div className="relative h-[260px] w-full overflow-hidden rounded-[22px] shadow-[0_16px_48px_rgba(16,24,45,0.13)] sm:h-[400px] lg:h-[480px]">
               <Image
                 src="/ug-merit-scholars.jpg"
                 alt="Medical postgraduates celebrating at AIIMS campus"
@@ -143,13 +143,13 @@ export function NeetPgHero() {
       {/* ── Stats bar ── */}
       <div className="border-t border-line bg-[#f7f9fc]">
         <div className="mx-auto max-w-[1424px] px-4 sm:px-8">
-          <div className="grid grid-cols-2 divide-x divide-line lg:grid-cols-4">
+          <div className="grid grid-cols-2 divide-x divide-y divide-line lg:grid-cols-4 lg:divide-y-0">
             {STATS.map((stat) => (
-              <div key={stat.label} className="px-6 py-7 sm:px-8">
-                <p className="text-[30px] font-extrabold tracking-[-0.03em] text-ink sm:text-[36px]">
+              <div key={stat.label} className="px-4 py-5 sm:px-8 sm:py-7">
+                <p className="text-[26px] font-extrabold tracking-[-0.03em] text-ink sm:text-[36px]">
                   {stat.value}
                 </p>
-                <p className="mt-0.5 text-[10.5px] font-bold uppercase tracking-[0.07em] text-muted">
+                <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.07em] text-muted sm:text-[10.5px]">
                   {stat.label}
                 </p>
                 <a

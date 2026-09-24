@@ -28,10 +28,10 @@ export function Hero() {
               Deemed, and State quotas nationwide.
             </p>
 
-            <div className="hero-rise hero-d3 mt-7 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-3.5">
+            <div className="hero-rise hero-d3 mt-7 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-3.5">
               <a
                 href="/predictors"
-                className="btn-press flex h-[50px] w-auto items-center justify-center gap-2.5 rounded-lg bg-brand px-5 text-[15px] font-semibold text-white transition-opacity hover:opacity-95 sm:h-[52px]"
+                className="btn-press flex h-[50px] w-full items-center justify-center gap-2.5 rounded-lg bg-brand px-5 text-[15px] font-semibold text-white transition-opacity hover:opacity-95 sm:h-[52px] sm:w-auto"
               >
                 <SparklesIcon className="h-[18px] w-[18px] shrink-0" />
                 Check Admission Predictor
@@ -40,7 +40,7 @@ export function Hero() {
                 href={WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-press flex h-[50px] w-auto items-center justify-center gap-2.5 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[15px] font-semibold text-navy shadow-[0_1px_2px_rgba(16,24,45,0.05)] transition-colors hover:bg-sky sm:h-[52px]"
+                className="btn-press flex h-[50px] w-full items-center justify-center gap-2.5 rounded-lg border border-[#DCE3EC] bg-white px-5 text-[15px] font-semibold text-navy shadow-[0_1px_2px_rgba(16,24,45,0.05)] transition-colors hover:bg-sky sm:h-[52px] sm:w-auto"
               >
                 <WhatsAppIcon className="h-[18px] w-[18px] shrink-0 text-[#25D366]" />
                 WhatsApp Consultation

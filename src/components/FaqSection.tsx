@@ -97,7 +97,7 @@ export function FaqSection() {
                 </button>
 
                 {isOpen && (
-                  <div className="border-t border-slate-100 bg-white px-6 py-5 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                  <div className="border-t border-slate-100 bg-white px-6 py-5 text-[13px] leading-relaxed text-slate-600 sm:text-sm">
                     {item.answer}
                   </div>
                 )}

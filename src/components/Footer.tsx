@@ -53,12 +53,12 @@ export function Footer() {
             <h4 className="text-[12px] font-bold uppercase tracking-[0.14em] text-white">
               Quick Navigation
             </h4>
-            <ul className="mt-5 space-y-2.5">
+            <ul className="mt-5 space-y-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-[13px] text-slate-400 transition hover:text-white"
+                    className="inline-block py-1.5 text-[13px] text-slate-400 transition hover:text-white"
                   >
                     {link.label}
                   </a>
@@ -85,27 +85,27 @@ export function Footer() {
             <h4 className="text-[12px] font-bold uppercase tracking-[0.14em] text-white">
               Direct Contact &amp; Office
             </h4>
-            <div className="mt-5 space-y-3 text-[13px] text-slate-400">
-              <p className="flex items-start gap-2">
-                <MapPinIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand" />
+            <div className="mt-5 space-y-1 text-[13px] text-slate-400">
+              <p className="flex items-start gap-2 py-1">
+                <MapPinIcon className="mt-1 h-3.5 w-3.5 shrink-0 text-brand" />
                 <span>Sadashiv Peth, Near Swargate Junction, Pune, Maharashtra 411030</span>
               </p>
               <p>
-                <a href="tel:+919359544396" className="hover:text-white">
+                <a href="tel:+919359544396" className="inline-block py-1.5 hover:text-white">
                   +91-93595 44396
                 </a>
               </p>
               <p>
-                <a href="tel:+919711857351" className="hover:text-white">
+                <a href="tel:+919711857351" className="inline-block py-1.5 hover:text-white">
                   +91-97118 57351
                 </a>
               </p>
               <p>
-                <a href="mailto:info@indiatointernational.com" className="hover:text-white">
+                <a href="mailto:info@indiatointernational.com" className="inline-block py-1.5 hover:text-white">
                   info@indiatointernational.com
                 </a>
               </p>
-              <p className="pt-1">
+              <p className="pt-2">
                 Counselling Desk Hours:
                 <br />
                 Mon – Sat: 10:00 AM – 7:00 PM IST

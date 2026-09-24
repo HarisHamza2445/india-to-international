@@ -38,7 +38,7 @@ export function GoogleReviews() {
       <div className="mx-auto max-w-[1424px] px-4 sm:px-8">
         <Reveal>
           <div className="flex flex-col items-center gap-4 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
-            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4 lg:items-center">
+            <div className="flex flex-row items-center gap-3 sm:gap-4 lg:items-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-white text-[22px] font-extrabold text-[#4285F4] shadow-xs">
                 G
               </span>
@@ -63,7 +63,7 @@ export function GoogleReviews() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
           {REVIEWS.map((review, index) => (
             <Reveal
               key={review.id}
