@@ -37,8 +37,8 @@ export function FloatingCTA() {
             aria-label="Chat on WhatsApp"
             className="btn-press flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-[#25D366] px-3 text-[15px] font-bold tracking-tight text-white shadow-lg shadow-[#25D366]/35 outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
           >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20">
-              <WhatsAppIcon className="h-[19px] w-[19px]" />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white">
+              <WhatsAppIcon className="h-[17px] w-[17px] text-[#25D366]" />
             </span>
             <span className="truncate">WhatsApp</span>
           </a>
@@ -47,8 +47,8 @@ export function FloatingCTA() {
             aria-label="Call now"
             className="btn-press flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2.5 rounded-2xl bg-[#0062ff] px-3 text-[15px] font-bold tracking-tight text-white shadow-lg shadow-blue-600/30 outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
           >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20">
-              <PhoneIcon className="h-[19px] w-[19px]" />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white">
+              <PhoneIcon className="h-[17px] w-[17px] text-[#0062ff]" />
             </span>
             <span className="truncate">Call Now</span>
           </a>
@@ -66,12 +66,12 @@ export function FloatingCTA() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/40 transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="group relative flex h-[62px] w-[62px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_28px_rgba(37,211,102,0.45),0_2px_8px_rgba(0,0,0,0.12)] transition-transform duration-200 hover:scale-110 active:scale-95"
         >
           {pulse && (
             <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-60" />
           )}
-          <WhatsAppIcon className="relative z-10 h-[30px] w-[30px]" />
+          <WhatsAppIcon className="relative z-10 h-[34px] w-[34px]" />
           <span className="pointer-events-none absolute right-16 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
             WhatsApp Us
           </span>
@@ -80,9 +80,9 @@ export function FloatingCTA() {
         <a
           href="tel:+919359544396"
           aria-label="Call now"
-          className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#0062ff] text-white shadow-lg shadow-blue-500/40 transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-[#0062ff] text-white shadow-[0_8px_20px_rgba(0,98,255,0.4),0_2px_6px_rgba(0,0,0,0.1)] transition-transform duration-200 hover:scale-110 active:scale-95"
         >
-          <PhoneIcon className="h-[21px] w-[21px]" />
+          <PhoneIcon className="h-5 w-5" />
           <span className="pointer-events-none absolute right-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
             Call Now
           </span>

@@ -14,6 +14,7 @@ export interface Lead {
   mode: "In-Person (Swargate Desk)" | "Live Video / Phone";
   status: "New Lead" | "Contacted" | "Slot Confirmed" | "Audit Generated" | "Admission Confirmed";
   notes?: string;
+  source?: "Landing Page" | "About Page" | "NEET PG Page" | "NEET UG Page" | "Predictors Page" | "Admin Manual";
   createdAt: string;
 }
 
@@ -95,6 +96,7 @@ type LeadRow = {
   mode: Lead["mode"];
   status: Lead["status"];
   notes: string | null;
+  source: Lead["source"] | null;
   created_at: string;
 };
 
@@ -135,6 +137,7 @@ function mapLead(r: LeadRow): Lead {
     mode: r.mode,
     status: r.status,
     notes: r.notes ?? undefined,
+    source: r.source ?? undefined,
     createdAt: r.created_at,
   };
 }
@@ -180,6 +183,7 @@ function leadToRow(l: Lead): LeadRow {
     mode: l.mode,
     status: l.status,
     notes: l.notes ?? null,
+    source: l.source ?? null,
     created_at: l.createdAt,
   };
 }
@@ -287,6 +291,7 @@ export async function exportLeadsCSV(): Promise<string> {
     "Domain",
     "Mode",
     "Target State / Branch",
+    "Source Page",
     "Status",
     "Created Date",
   ];
@@ -300,6 +305,7 @@ export async function exportLeadsCSV(): Promise<string> {
     l.domain,
     `"${l.mode}"`,
     `"${l.targetStateBranch}"`,
+    `"${l.source || "-"}"`,
     l.status,
     l.createdAt,
   ]);
@@ -397,11 +403,72 @@ export async function deleteCollege(id: string): Promise<void> {
   emit("itoi_colleges_updated");
 }
 
+// ── SEED DATA (used when Supabase colleges table is empty) ───────────────────
+const SEED_COLLEGES: CollegeCutoff[] = [
+  // ── NEET PG — AIQ Government ──
+  { id: "s-pg-01", collegeName: "King Edward Memorial (KEM) Hospital, Mumbai", state: "Maharashtra", quota: "AIQ 50%", closingRank: 2840, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.48 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹94,000/mo" },
+  { id: "s-pg-02", collegeName: "Grant Government Medical College, Mumbai", state: "Maharashtra", quota: "AIQ 50%", closingRank: 7150, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.52 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹92,000/mo" },
+  { id: "s-pg-03", collegeName: "Government Medical College, Nagpur", state: "Maharashtra", quota: "AIQ 50%", closingRank: 13910, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.45 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹88,000/mo" },
+  { id: "s-pg-04", collegeName: "Government Medical College, Pune (Sassoon)", state: "Maharashtra", quota: "AIQ 50%", closingRank: 11200, domain: "NEET PG", branch: "MS Orthopaedics", annualFees: "₹1.45 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹88,000/mo" },
+  { id: "s-pg-05", collegeName: "Lokmanya Tilak Municipal Medical College, Mumbai", state: "Maharashtra", quota: "AIQ 50%", closingRank: 9800, domain: "NEET PG", branch: "MD Paediatrics", annualFees: "₹1.50 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹91,000/mo" },
+  { id: "s-pg-06", collegeName: "B.J. Medical College, Pune", state: "Maharashtra", quota: "State 50%", closingRank: 18500, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.45 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹88,000/mo" },
+  { id: "s-pg-07", collegeName: "Government Medical College, Aurangabad", state: "Maharashtra", quota: "State 50%", closingRank: 22000, domain: "NEET PG", branch: "MD Paediatrics", annualFees: "₹1.40 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹85,000/mo" },
+  { id: "s-pg-08", collegeName: "Maulana Azad Medical College, Delhi", state: "Delhi", quota: "AIQ 50%", closingRank: 1100, domain: "NEET PG", branch: "MD Radio-Diagnosis", annualFees: "₹1.20 L", bondPenalty: "Nil", stipend: "₹95,000/mo" },
+  { id: "s-pg-09", collegeName: "Lady Hardinge Medical College, Delhi", state: "Delhi", quota: "AIQ 50%", closingRank: 3400, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.18 L", bondPenalty: "Nil", stipend: "₹95,000/mo" },
+  { id: "s-pg-10", collegeName: "Safdarjung Hospital, Delhi (VMMC)", state: "Delhi", quota: "AIQ 50%", closingRank: 1950, domain: "NEET PG", branch: "MS General Surgery", annualFees: "₹1.22 L", bondPenalty: "Nil", stipend: "₹95,000/mo" },
+  { id: "s-pg-11", collegeName: "Institute of Medical Sciences, BHU Varanasi", state: "Uttar Pradesh", quota: "AIQ 50%", closingRank: 4200, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.10 L", bondPenalty: "Nil", stipend: "₹90,000/mo" },
+  { id: "s-pg-12", collegeName: "Jawaharlal Nehru Medical College, AMU Aligarh", state: "Uttar Pradesh", quota: "AIQ 50%", closingRank: 5800, domain: "NEET PG", branch: "MD Paediatrics", annualFees: "₹1.15 L", bondPenalty: "Nil", stipend: "₹88,000/mo" },
+  { id: "s-pg-13", collegeName: "Government Medical College, Thiruvananthapuram", state: "Kerala", quota: "AIQ 50%", closingRank: 8900, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.30 L", bondPenalty: "₹5 L / 2 yr", stipend: "₹86,000/mo" },
+  { id: "s-pg-14", collegeName: "Rajiv Gandhi Medical College, Thane", state: "Maharashtra", quota: "State 50%", closingRank: 26500, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹1.42 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹84,000/mo" },
+  { id: "s-pg-15", collegeName: "Government Medical College, Nanded", state: "Maharashtra", quota: "State 50%", closingRank: 30000, domain: "NEET PG", branch: "MS Orthopaedics", annualFees: "₹1.38 L", bondPenalty: "₹10 L / 1 yr", stipend: "₹82,000/mo" },
+  // ── NEET PG — Deemed/Private ──
+  { id: "s-pg-16", collegeName: "Kasturba Medical College, Manipal", state: "Karnataka", quota: "Deemed", closingRank: 15000, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹18.0 L", bondPenalty: "Nil", stipend: "₹60,000/mo" },
+  { id: "s-pg-17", collegeName: "Amrita Institute of Medical Sciences, Coimbatore", state: "Tamil Nadu", quota: "Deemed", closingRank: 20000, domain: "NEET PG", branch: "MD Paediatrics", annualFees: "₹16.5 L", bondPenalty: "Nil", stipend: "₹55,000/mo" },
+  { id: "s-pg-18", collegeName: "JSS Medical College, Mysuru", state: "Karnataka", quota: "Deemed", closingRank: 28000, domain: "NEET PG", branch: "MS General Surgery", annualFees: "₹14.0 L", bondPenalty: "Nil", stipend: "₹52,000/mo" },
+  { id: "s-pg-19", collegeName: "Sri Ramachandra Medical College, Chennai", state: "Tamil Nadu", quota: "Deemed", closingRank: 32000, domain: "NEET PG", branch: "MD Radio-Diagnosis", annualFees: "₹17.5 L", bondPenalty: "Nil", stipend: "₹58,000/mo" },
+  { id: "s-pg-20", collegeName: "D.Y. Patil Medical College, Pune", state: "Maharashtra", quota: "Deemed", closingRank: 40000, domain: "NEET PG", branch: "MD General Medicine", annualFees: "₹15.0 L", bondPenalty: "Nil", stipend: "₹50,000/mo" },
+  // ── NEET PG — DNB Hospitals ──
+  { id: "s-pg-21", collegeName: "Apollo Hospitals, Hyderabad (DNB)", state: "Telangana", quota: "DNB Hospital", closingRank: 12000, domain: "NEET PG", branch: "DNB General Medicine", annualFees: "Nil", bondPenalty: "Nil", stipend: "₹80,000/mo" },
+  { id: "s-pg-22", collegeName: "Fortis Hospital, Gurgaon (DNB)", state: "Haryana", quota: "DNB Hospital", closingRank: 16000, domain: "NEET PG", branch: "DNB Cardiology", annualFees: "Nil", bondPenalty: "Nil", stipend: "₹75,000/mo" },
+  { id: "s-pg-23", collegeName: "Narayana Health, Bangalore (DNB)", state: "Karnataka", quota: "DNB Hospital", closingRank: 22000, domain: "NEET PG", branch: "DNB Paediatrics", annualFees: "Nil", bondPenalty: "Nil", stipend: "₹70,000/mo" },
+  { id: "s-pg-24", collegeName: "Ruby Hall Clinic, Pune (DNB)", state: "Maharashtra", quota: "DNB Hospital", closingRank: 28000, domain: "NEET PG", branch: "DNB General Medicine", annualFees: "Nil", bondPenalty: "Nil", stipend: "₹65,000/mo" },
+  { id: "s-pg-25", collegeName: "Jehangir Hospital, Pune (DNB)", state: "Maharashtra", quota: "DNB Hospital", closingRank: 35000, domain: "NEET PG", branch: "DNB Orthopaedics", annualFees: "Nil", bondPenalty: "Nil", stipend: "₹62,000/mo" },
+
+  // ── NEET UG — Government ──
+  { id: "s-ug-01", collegeName: "AIIMS New Delhi", state: "Delhi", quota: "AIQ 100%", closingRank: 50, domain: "NEET UG", branch: "MBBS", annualFees: "₹1,628", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-02", collegeName: "AIIMS Mumbai", state: "Maharashtra", quota: "AIQ 100%", closingRank: 200, domain: "NEET UG", branch: "MBBS", annualFees: "₹1,628", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-03", collegeName: "JIPMER Puducherry", state: "Puducherry", quota: "AIQ 100%", closingRank: 450, domain: "NEET UG", branch: "MBBS", annualFees: "₹5,000", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-04", collegeName: "Government Medical College, Nagpur", state: "Maharashtra", quota: "State 85%", closingRank: 9200, domain: "NEET UG", branch: "MBBS", annualFees: "₹38,000", bondPenalty: "₹10 L / rural", stipend: "N/A" },
+  { id: "s-ug-05", collegeName: "Grant Government Medical College, Mumbai", state: "Maharashtra", quota: "State 85%", closingRank: 4800, domain: "NEET UG", branch: "MBBS", annualFees: "₹38,000", bondPenalty: "₹10 L / rural", stipend: "N/A" },
+  { id: "s-ug-06", collegeName: "B.J. Medical College, Pune", state: "Maharashtra", quota: "State 85%", closingRank: 5500, domain: "NEET UG", branch: "MBBS", annualFees: "₹38,000", bondPenalty: "₹10 L / rural", stipend: "N/A" },
+  { id: "s-ug-07", collegeName: "Maulana Azad Medical College, Delhi", state: "Delhi", quota: "AIQ 15%", closingRank: 750, domain: "NEET UG", branch: "MBBS", annualFees: "₹14,500", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-08", collegeName: "King George's Medical University, Lucknow", state: "Uttar Pradesh", quota: "State 85%", closingRank: 7200, domain: "NEET UG", branch: "MBBS", annualFees: "₹52,000", bondPenalty: "₹5 L / rural", stipend: "N/A" },
+  { id: "s-ug-09", collegeName: "Government Medical College, Aurangabad", state: "Maharashtra", quota: "State 85%", closingRank: 12000, domain: "NEET UG", branch: "MBBS", annualFees: "₹38,000", bondPenalty: "₹10 L / rural", stipend: "N/A" },
+  { id: "s-ug-10", collegeName: "Seth G.S. Medical College, Mumbai", state: "Maharashtra", quota: "State 85%", closingRank: 3200, domain: "NEET UG", branch: "MBBS", annualFees: "₹38,000", bondPenalty: "₹10 L / rural", stipend: "N/A" },
+  // ── NEET UG — Deemed/Private ──
+  { id: "s-ug-11", collegeName: "Kasturba Medical College, Manipal", state: "Karnataka", quota: "Deemed", closingRank: 15000, domain: "NEET UG", branch: "MBBS", annualFees: "₹24.0 L", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-12", collegeName: "D.Y. Patil Medical College, Pune", state: "Maharashtra", quota: "Management", closingRank: 80000, domain: "NEET UG", branch: "MBBS", annualFees: "₹22.0 L", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-13", collegeName: "Bharati Vidyapeeth Medical College, Pune", state: "Maharashtra", quota: "Management", closingRank: 60000, domain: "NEET UG", branch: "MBBS", annualFees: "₹18.0 L", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-14", collegeName: "Sri Ramachandra Medical College, Chennai", state: "Tamil Nadu", quota: "Deemed", closingRank: 25000, domain: "NEET UG", branch: "MBBS", annualFees: "₹21.5 L", bondPenalty: "Nil", stipend: "N/A" },
+  { id: "s-ug-15", collegeName: "Amrita School of Medicine, Coimbatore", state: "Tamil Nadu", quota: "Deemed", closingRank: 30000, domain: "NEET UG", branch: "MBBS", annualFees: "₹20.0 L", bondPenalty: "Nil", stipend: "N/A" },
+
+  // ── NEET MDS ──
+  { id: "s-mds-01", collegeName: "Maulana Azad Institute of Dental Sciences, Delhi", state: "Delhi", quota: "AIQ 50%", closingRank: 180, domain: "NEET MDS", branch: "MDS Orthodontics", annualFees: "₹1.20 L", bondPenalty: "Nil", stipend: "₹50,000/mo" },
+  { id: "s-mds-02", collegeName: "Government Dental College & Hospital, Mumbai", state: "Maharashtra", quota: "AIQ 50%", closingRank: 420, domain: "NEET MDS", branch: "MDS Oral Surgery", annualFees: "₹1.10 L", bondPenalty: "₹5 L / 1 yr", stipend: "₹48,000/mo" },
+  { id: "s-mds-03", collegeName: "Government Dental College, Pune", state: "Maharashtra", quota: "State 50%", closingRank: 850, domain: "NEET MDS", branch: "MDS Pedodontics", annualFees: "₹1.05 L", bondPenalty: "₹5 L / 1 yr", stipend: "₹45,000/mo" },
+  { id: "s-mds-04", collegeName: "Nair Hospital Dental College, Mumbai", state: "Maharashtra", quota: "State 50%", closingRank: 600, domain: "NEET MDS", branch: "MDS Periodontics", annualFees: "₹1.08 L", bondPenalty: "₹5 L / 1 yr", stipend: "₹47,000/mo" },
+  { id: "s-mds-05", collegeName: "Manipal College of Dental Sciences", state: "Karnataka", quota: "Deemed", closingRank: 2000, domain: "NEET MDS", branch: "MDS Orthodontics", annualFees: "₹8.5 L", bondPenalty: "Nil", stipend: "₹35,000/mo" },
+  { id: "s-mds-06", collegeName: "A.B. Shetty Memorial Institute of Dental Sciences", state: "Karnataka", quota: "Deemed", closingRank: 3500, domain: "NEET MDS", branch: "MDS Conservative Dentistry", annualFees: "₹7.0 L", bondPenalty: "Nil", stipend: "₹32,000/mo" },
+];
+
 export async function calculateAdmissionProbability(
   userRank: number,
   domain: "NEET PG" | "NEET UG" | "NEET MDS" = "NEET PG"
 ): Promise<PredictorResult[]> {
-  const colleges = (await getColleges()).filter((c) => c.domain === domain);
+  const all = await getColleges();
+  // If Supabase returned no data, fall back to built-in seed colleges
+  const pool = all.length > 0 ? all : SEED_COLLEGES;
+  const colleges = pool.filter((c) => c.domain === domain);
 
   return colleges.map((col) => {
     const diff = col.closingRank - userRank;

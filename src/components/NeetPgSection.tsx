@@ -78,7 +78,7 @@ export function NeetPgSection() {
             </h2>
 
             <p className="mt-3 text-[14.5px] font-normal leading-[1.65] text-muted sm:text-[15.5px]">
-              Navigating 50% All India Quota MCC, 50% State Quota, Central Institutes (BHU, AMU, IP University), DNB Hospitals (NBE), and CPS/FCPS diplomas with zero margin for seat surrender penalties.
+              Navigating 50% All India Quota MCC, 50% State Quota, Central Institutes (BHU, AMU, IP University), and DNB Hospitals (NBE) with zero margin for seat surrender penalties.
             </p>
 
             <div className="mt-7 space-y-3.5 sm:space-y-4">
@@ -110,7 +110,7 @@ export function NeetPgSection() {
                 Book NEET PG Strategy Session
               </a>
               <a
-                href="#predictors"
+                href="/predictors"
                 className="btn-press inline-flex h-[48px] items-center justify-center rounded-lg border border-[#DCE3EC] bg-white px-6 text-[14.5px] font-semibold text-ink shadow-[0_1px_2px_rgba(16,24,45,0.04)] transition-colors hover:bg-sky"
               >
                 Run PG Predictor

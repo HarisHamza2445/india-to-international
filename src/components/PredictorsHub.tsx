@@ -62,7 +62,7 @@ function ResultModal({
                   <div key={r.college.id} className="flex items-center justify-between rounded-lg border border-emerald-100 bg-emerald-50/60 px-4 py-3">
                     <div>
                       <p className="text-xs font-bold text-slate-900 sm:text-[13px]">{r.college.collegeName}</p>
-                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.quota} • Closing Rank ~{r.college.closingRank.toLocaleString()}</p>
+                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.state} · {r.college.quota} · Closing Rank ~{r.college.closingRank.toLocaleString()} · {r.college.branch}</p>
                     </div>
                     <span className="ml-3 shrink-0 rounded-md border border-emerald-200 bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">
                       {r.probabilityScore}%
@@ -84,7 +84,7 @@ function ResultModal({
                   <div key={r.college.id} className="flex items-center justify-between rounded-lg border border-amber-100 bg-amber-50/60 px-4 py-3">
                     <div>
                       <p className="text-xs font-bold text-slate-900 sm:text-[13px]">{r.college.collegeName}</p>
-                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.quota} • Closing Rank ~{r.college.closingRank.toLocaleString()}</p>
+                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.state} · {r.college.quota} · Closing Rank ~{r.college.closingRank.toLocaleString()} · {r.college.branch}</p>
                     </div>
                     <span className="ml-3 shrink-0 rounded-md border border-amber-200 bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-700">
                       {r.probabilityScore}%
@@ -106,7 +106,7 @@ function ResultModal({
                   <div key={r.college.id} className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
                     <div>
                       <p className="text-xs font-bold text-slate-900 sm:text-[13px]">{r.college.collegeName}</p>
-                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.quota} • Closing Rank ~{r.college.closingRank.toLocaleString()}</p>
+                      <p className="mt-0.5 text-[11px] text-slate-500">{r.college.state} · {r.college.quota} · Closing Rank ~{r.college.closingRank.toLocaleString()} · {r.college.branch}</p>
                     </div>
                     <span className="ml-3 shrink-0 rounded-md border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">
                       {r.probabilityScore}%
@@ -136,10 +136,21 @@ function ResultModal({
   );
 }
 
+// Map dropdown labels → state names matching SEED_COLLEGES
+const STATE_MAP: Record<string, string> = {
+  "Maharashtra (DMER / CET)": "Maharashtra",
+  "Karnataka (KEA)":          "Karnataka",
+  "UP (DGME)":                "Uttar Pradesh",
+  "Bihar (BCECE)":            "Bihar",
+  "Delhi (DGHS)":             "Delhi",
+};
+
 export function PredictorsHub() {
   const [aiqRank, setAiqRank] = useState("");
   const [aiqDomain, setAiqDomain] = useState<Domain>("NEET PG");
   const [stateRank, setStateRank] = useState("");
+  const [stateDomain, setStateDomain] = useState<Domain>("NEET PG");
+  const [selectedState, setSelectedState] = useState("Maharashtra (DMER / CET)");
 
   const [aiqResults, setAiqResults] = useState<PredictorResult[] | null>(null);
   const [stateResults, setStateResults] = useState<PredictorResult[] | null>(null);
@@ -149,6 +160,12 @@ export function PredictorsHub() {
     const rank = parseInt(aiqRank.replace(/,/g, ""), 10);
     if (isNaN(rank) || rank < 1) return;
     const results = await calculateAdmissionProbability(rank, aiqDomain);
+    // Sort: HIGH first, then by probabilityScore desc
+    results.sort((a, b) => {
+      const order = { HIGH: 0, MODERATE: 1, BORDERLINE: 2 };
+      if (order[a.probability] !== order[b.probability]) return order[a.probability] - order[b.probability];
+      return b.probabilityScore - a.probabilityScore;
+    });
     setAiqResults(results);
     setActiveModal("aiq");
   };
@@ -156,8 +173,19 @@ export function PredictorsHub() {
   const runState = async () => {
     const rank = parseInt(stateRank.replace(/,/g, ""), 10);
     if (isNaN(rank) || rank < 1) return;
-    const results = await calculateAdmissionProbability(rank, "NEET PG");
-    setStateResults(results);
+    const allResults = await calculateAdmissionProbability(rank, stateDomain);
+    const stateLabel = STATE_MAP[selectedState] ?? selectedState;
+
+    // Partition: selected state first, then the rest — preserve probability ordering within each group
+    const inState  = allResults.filter((r) => r.college.state === stateLabel);
+    const outState = allResults.filter((r) => r.college.state !== stateLabel);
+    const sortFn = (a: PredictorResult, b: PredictorResult) => {
+      const order = { HIGH: 0, MODERATE: 1, BORDERLINE: 2 };
+      if (order[a.probability] !== order[b.probability]) return order[a.probability] - order[b.probability];
+      return b.probabilityScore - a.probabilityScore;
+    };
+    const sorted = [...inState.sort(sortFn), ...outState.sort(sortFn)];
+    setStateResults(sorted);
     setActiveModal("state");
   };
 
@@ -167,7 +195,7 @@ export function PredictorsHub() {
         <ResultModal results={aiqResults} rank={aiqRank} onClose={() => setActiveModal(null)} />
       )}
       {activeModal === "state" && stateResults && (
-        <ResultModal results={stateResults} rank={stateRank} onClose={() => setActiveModal(null)} />
+        <ResultModal results={stateResults} rank={`${stateRank} · ${selectedState.split(" ")[0]}`} onClose={() => setActiveModal(null)} />
       )}
 
       <section
@@ -359,7 +387,11 @@ export function PredictorsHub() {
                       Select Domicile State
                     </label>
                     <div className="relative mt-2">
-                      <select className="w-full appearance-none rounded-[6px] border border-line bg-white px-3 py-2.5 pr-8 text-[14px] text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 sm:text-[16px]">
+                      <select
+                        value={selectedState}
+                        onChange={(e) => setSelectedState(e.target.value)}
+                        className="w-full appearance-none rounded-[6px] border border-line bg-white px-3 py-2.5 pr-8 text-[14px] text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 sm:text-[16px]"
+                      >
                         <option>Maharashtra (DMER / CET)</option>
                         <option>Karnataka (KEA)</option>
                         <option>UP (DGME)</option>
@@ -369,10 +401,27 @@ export function PredictorsHub() {
                       <ChevronDownIcon className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
                     </div>
                   </div>
+                  <div>
+                    <label className="block text-[10.5px] font-bold uppercase tracking-[0.06em] text-muted">
+                      Target Course
+                    </label>
+                    <div className="relative mt-2">
+                      <select
+                        value={stateDomain}
+                        onChange={(e) => setStateDomain(e.target.value as Domain)}
+                        className="w-full appearance-none rounded-[6px] border border-line bg-white px-3 py-2.5 pr-8 text-[14px] text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 sm:text-[16px]"
+                      >
+                        <option value="NEET PG">NEET PG (MD / MS)</option>
+                        <option value="NEET UG">NEET UG (MBBS)</option>
+                        <option value="NEET MDS">NEET MDS (Dental)</option>
+                      </select>
+                      <ChevronDownIcon className="pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-3 flex items-center gap-2 text-[12.5px] text-muted">
                   <CheckCircleIcon className="h-4 w-4 shrink-0 text-accent" />
-                  Calculates domicile priority and category fee concessions
+                  Colleges from your state appear first, then national options
                 </div>
               </div>
 

@@ -1,21 +1,25 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-import { CalendarIcon, CloseIcon, LockIcon, MenuIcon } from "./icons";
+import { CloseIcon, LockIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "./icons";
+
+const WA_HREF =
+  "https://wa.me/919359544396?text=Hello%2C%20I%20want%20to%20enquire%20about%20NEET%20counselling%20services.";
 
 const NAV_ITEMS = [
-  { label: "Home", href: "#home" },
-  { label: "NEET UG", href: "#neet-ug" },
-  { label: "NEET PG", href: "#neet-pg" },
-  { label: "NEET MDS", href: "#neet-mds" },
-  { label: "Predictors", href: "#predictors" },
-  { label: "Counselling", href: "#pathways" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "NEET UG", href: "/neet-ug" },
+  { label: "NEET PG", href: "/neet-pg" },
+  { label: "Predictors", href: "/predictors" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "About", href: "/about" },
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -23,44 +27,66 @@ export function Navbar() {
     return () => document.body.classList.remove("nav-locked");
   }, [open]);
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setOpen(false);
+  }, [pathname]);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-line bg-white shadow-[0_1px_2px_rgba(16,24,45,0.04)]">
-      <div className="mx-auto flex h-[72px] max-w-[1424px] items-center justify-between gap-3 px-4 sm:h-[88px] sm:gap-6 sm:px-8">
-        <a href="#home" className="flex min-w-0 shrink items-center gap-2.5 sm:gap-3">
-          <Logo className="h-11 w-11 shrink-0 sm:h-[54px] sm:w-[54px]" />
+    <header className="sticky top-0 z-40 w-full border-b border-line bg-white/95 shadow-[0_1px_2px_rgba(16,24,45,0.04)] backdrop-blur-md">
+      <div className="mx-auto flex h-[68px] max-w-[1424px] items-center justify-between gap-3 px-4 sm:h-[76px] sm:gap-6 sm:px-8">
+        <Link href="/" className="flex min-w-0 shrink items-center gap-2.5 sm:gap-3">
+          <Logo className="h-10 w-10 shrink-0 sm:h-[46px] sm:w-[46px]" />
           <span className="flex min-w-0 flex-col">
-            <span className="truncate text-[16px] font-bold leading-tight text-ink sm:text-[20px]">
+            <span className="truncate text-[15px] font-bold leading-tight text-ink sm:text-[18px]">
               India To International
             </span>
-            <span className="mt-0.5 line-clamp-2 max-w-[160px] text-[11px] font-bold uppercase leading-[1.3] tracking-[0.01em] text-brand sm:max-w-[186px] sm:text-[12.5px]">
-              NEET Medical Admissions &amp; Advisory
+            <span className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-brand sm:text-[11px]">
+              NEET Counselling Desk
             </span>
           </span>
-        </a>
+        </Link>
 
-        <nav className="hidden items-center gap-[38px] lg:flex">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-[15.5px] font-semibold text-navlink transition-colors hover:text-brand"
-            >
-              {item.label}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-8 xl:flex">
+          {NAV_ITEMS.map((item) => {
+            const active =
+              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-[14.5px] font-semibold transition-colors hover:text-brand ${
+                  active ? "text-brand" : "text-navlink"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <a
-          href="#contact"
-          className="hidden h-[44px] shrink-0 items-center gap-2 rounded-md bg-brand px-5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-alt lg:flex"
-        >
-          <CalendarIcon className="h-[17px] w-[17px]" />
-          Book Consultation
-        </a>
+        <div className="hidden items-center gap-4 lg:flex">
+          <a
+            href="tel:+919359544396"
+            className="flex items-center gap-2 text-[14px] font-semibold text-ink transition-colors hover:text-brand"
+          >
+            <PhoneIcon className="h-4 w-4 text-brand" />
+            +91-93595 44396
+          </a>
+          <a
+            href={WA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-[42px] shrink-0 items-center gap-2 rounded-lg bg-brand px-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-alt"
+          >
+            <WhatsAppIcon className="h-4 w-4" />
+            WhatsApp Advisory
+          </a>
+        </div>
 
         <button
           type="button"
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-line text-ink lg:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-line text-ink xl:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -70,34 +96,44 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-line bg-white lg:hidden sm:max-h-[calc(100dvh-88px)]">
+        <div className="max-h-[calc(100dvh-68px)] overflow-y-auto border-t border-line bg-white xl:hidden sm:max-h-[calc(100dvh-76px)]">
           <nav className="mx-auto flex max-w-[1424px] flex-col px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-1 sm:px-8">
             {NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="border-b border-line/70 py-3.5 text-[15.5px] font-semibold text-navlink transition-colors last:border-b-0 hover:text-brand"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             <a
-              href="#contact"
+              href="tel:+919359544396"
+              className="mt-3 flex h-[48px] items-center justify-center gap-2 rounded-md border border-line text-[15px] font-semibold text-ink"
+              onClick={() => setOpen(false)}
+            >
+              <PhoneIcon className="h-4 w-4 text-brand" />
+              +91-93595 44396
+            </a>
+            <a
+              href={WA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
               className="my-3 flex h-[48px] items-center justify-center gap-2 rounded-md bg-brand px-5 text-[15px] font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              <CalendarIcon className="h-[17px] w-[17px]" />
-              Book Consultation
+              <WhatsAppIcon className="h-[17px] w-[17px]" />
+              WhatsApp Advisory
             </a>
-            <a
+            <Link
               href="/admin"
               className="mb-2 flex min-h-[44px] items-center justify-center gap-2 py-2 text-[13px] font-semibold text-muted transition-colors hover:text-brand"
               onClick={() => setOpen(false)}
             >
               <LockIcon className="h-3.5 w-3.5" />
               Counsellor Portal
-            </a>
+            </Link>
           </nav>
         </div>
       )}
